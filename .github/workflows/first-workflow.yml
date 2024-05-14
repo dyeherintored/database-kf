@@ -1,54 +1,54 @@
 # This is a basic workflow to help you get started with Actions
-
+ 
 name: Introducao ao GITHUB actions
-
+ 
 # Controls when the workflow will run
 on:
+ 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
+ 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build: # nome do job
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-latest # é a consola
+ 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4 # pega todo o codigo do main branch e poe dentro do ubuntu latest
+ 
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
-
+ 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
+ 
+       # Runs a set of commands using the runners shell
+      - name: Cria um diretório e lista tudo
+        run: | # se pusermos mais de uma linha, temos q por este sinal de pipe "|"
           mkdir hello
           ls
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-
+ 
   # This workflow contains a single job called "build"
-  batatas:
+  arroz-basmati: # nome do job
+    needs: build # só executa quando o build terminar
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-latest # é a consola
+ 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4 # pega todo o codigo do main branch e poe dentro do ubuntu latest
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          mkdir hello
-          ls
+      - name: Atualiza o ubuntu e instala pgsql
+        run: | # se pusermos mais de uma linha, temos q por este sinal de pipe "|"
+          sudo apt update
+          sudo apt -y install postgresql-client   
+          PGPASSWORD=Abcd1234! psql -U postgres -h database-ea.cvkei0o2ei4o.eu-central-1.rds.amazonaws.com -d db-kf
